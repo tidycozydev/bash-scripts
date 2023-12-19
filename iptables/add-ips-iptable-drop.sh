@@ -11,7 +11,7 @@ fi
 # the same guy meanwhile before restoring the backup
 while read -r line
 do
-    if $(/sbin/iptables -C INPUT -s $line -j DROP); then
+    if ! $(/sbin/iptables -C INPUT -s $line -j DROP); then
         /sbin/iptables -A INPUT -s "$line" -j DROP
     fi
 done < "$csv_file"
